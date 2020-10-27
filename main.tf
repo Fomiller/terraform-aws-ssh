@@ -34,11 +34,12 @@ resource "local_file" "write_key" {
 
 # instance
 resource "aws_instance" "this" {
+  
   key_name      = module.key_pair.this_key_pair_key_name
   ami           = "ami-01fee56b22f308154"
   instance_type = "t2.micro"
   tags = {
-    Name = "ssh-test-01"
+    Name = var.docker_image
   }
 
   connection {
