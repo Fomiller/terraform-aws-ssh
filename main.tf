@@ -56,6 +56,7 @@ resource "aws_instance" "this" {
       "sudo yum install docker -y",
       "sudo service docker start",
       "sudo docker run -d -p 80:8080 ${var.docker_image}",
+      "sudo usermod -a -G docker ec2-user"
     ]
   }
 }
@@ -72,6 +73,6 @@ output "private_key" {
 
 #   provisioner "local-exec" {
 #     # copy the public-ip file back to CWD, which will be tested
-#     command = "ssh -i ${local_file.write_key.filename} ${var.ssh_user}@${aws_eip.this.public_ip}"
+#     command = "ssh -o StrictHostKeyChecking no -i ${local_file.write_key.filename} ${var.ssh_user}@${aws_eip.this.public_ip}"
 #   }
 # }
